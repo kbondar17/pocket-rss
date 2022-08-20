@@ -1,0 +1,7 @@
+{
+    "python.linting.enabled": true,
+    "terminal.integrated.env.windows": {"PYTHONPATH": "${workspaceFolder}"},
+    "python.pythonPath": "C:\\Users\\ironb\\прогр\\WEEDLY\\weedly-tg-bot\\win_env\\Scripts\\python.exe",
+    "python.envFile": "${workspaceFolder}/.env",
+
+}

@@ -1,0 +1,9 @@
+# to create postgres in container
+POSTGRES_PASSWORD=<password>
+POSTGRES_USER=weedly
+POSTGRES_DB=weedly
+
+# used in application
+DB_URL=postgresql://weedly:<password>@db:5432/weedly
+FLASK_ENV=development
+FLASK_APP=weedly_app.app

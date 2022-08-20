@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Kommersant",
+    "is_rss": true,
+    "url": "https://www.kommersant.ru/RSS/section-politics.xml"
+  },
+  {
+    "name": "meduza",
+    "is_rss": true,
+    "url": "https://meduza.io/rss/all"
+  },
+  { "name": "hacker news", "is_rss": true, "url": "https://hnrss.org/frontpage" },
+  { "name": "vc.ru", "is_rss": true, "url": "https://vc.ru/rss?ref=vc.ru" }
+]
