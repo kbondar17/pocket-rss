@@ -6,14 +6,16 @@ import validators
 
 def get_name_from_url(url):
     '''взяли из урла только название ресусра, чтобы написать юзеру, что на него подписались'''
-    name = re.findall(pattern='https://.*/', string=url)
-    name = re.sub('https://', '', name[0])
-    name = re.sub('www.', '', name)
-    name = re.findall(pattern='.*/', string=name)
-    name = name[0].strip('/')
-    name = name.split('/')[0]
-    return name
-
+    try:
+        name = re.findall(pattern='https:\/\/.*\/|http:\/\/.*\/.*', string=url)
+        name = re.sub('https://', '', name[0])
+        name = re.sub('www.', '', name)
+        name = re.findall(pattern='.*/', string=name)
+        name = name[0].strip('/')
+        name = name.split('/')[0]
+        return name
+    except Exception as ex:
+        return url
 
 def check_if_rss_is_working(url):
     '''пробуем парсить фид, если нет ошибки и есть статьи отдаем True'''
