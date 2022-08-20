@@ -2,19 +2,22 @@ import feedparser
 import re
 from pprint import pprint
 import validators
+from urllib.parse import urlparse
 
 
 def get_name_from_url(url):
     '''взяли из урла только название ресусра, чтобы написать юзеру, что на него подписались'''
     try:
-        name = re.findall(pattern='https:\/\/.*\/|http:\/\/.*\/.*', string=url)
-        name = re.sub('https://', '', name[0])
-        name = re.sub('www.', '', name)
-        name = re.findall(pattern='.*/', string=name)
-        name = name[0].strip('/')
-        name = name.split('/')[0]
-        return name
+        site = urlparse(url).netloc 
+        site = site.strip('www')
+        site = site.strip('.')
+        site = site.strip('/')
+        site = site.replace(':','')
+        if site:
+            return site
     except Exception as ex:
+        print('get_name_from_url --- ')
+        print(ex)
         return url
 
 def check_if_rss_is_working(url):
