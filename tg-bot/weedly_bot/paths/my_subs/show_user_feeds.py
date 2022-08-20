@@ -32,4 +32,4 @@ async def show_user_feeds(call: types.CallbackQuery):
     kb = kb_generator.generate_feeds(feeds=all_sources, current=current, feeds_calldata=feeds_calldata,
                                      data_for_return='back_to_choosing_source',
                                      data_for_pagination='show_user_feeds', action_for_calldata='read')
-    await call.message.edit_text(text='Выбери источник:', reply_markup=kb)
+    await call.message.edit_text(text='Выбери источник', reply_markup=kb)
