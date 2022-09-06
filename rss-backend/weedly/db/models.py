@@ -1,3 +1,4 @@
+import re
 from typing import Any
 
 from flask_sqlalchemy import SQLAlchemy
@@ -75,6 +76,13 @@ class Feed(Base):
     category = Column(String)
     url = Column(String, unique=True)
     is_rss = Column(Boolean)
+    articles = relationship('Article', lazy="dynamic", backref='article_feed')
+
+    #     feed: Any = relationship(
+    #     'Feed',
+    #     foreign_keys=[feed_id],
+    #     backref='feed_authors',
+    # )
 
     is_deleted = Column(Boolean, default=False)
 
@@ -150,6 +158,7 @@ class Article(Base):
     published = Column(DateTime)
     description = Column(String)
     feed_id = Column(Integer, ForeignKey(Feed.uid))
+    
     feed: Any = relationship(
         'Feed',
         foreign_keys=[feed_id],
