@@ -19,6 +19,7 @@ orjson = "^3.6.6"
 
 bs4 = "^0.0.1"
 httpx = "^0.22.0"
+python-dotenv = "^0.21.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.930"
