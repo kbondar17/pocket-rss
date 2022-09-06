@@ -1,10 +1,11 @@
 import logging
 from pathlib import Path
+from statistics import mode
 
 import orjson
 from typer import Typer
 
-from weedly.db.models import Feed
+from weedly.db.models import Feed, Article
 from weedly.db.session import create_db, db_session, reset_db
 
 app = Typer()
