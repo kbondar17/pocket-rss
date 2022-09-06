@@ -1,12 +1,14 @@
 import logging
 import os
-# db settings
-# SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URL', 'postgresql://app:1441@localhost:5432/weedly',)
-# SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URL', 'postgresql://app:1441@localhost:5432/weedly',)
-# SQLALCHEMY_DATABASE_URI = 'postgresql://app:1441@localhost:5432/weedly'
-# SQLALCHEMY_DATABASE_URI ='postgresql://weedly:1441@http://127.0.0.1:5432/weedly'
-# SQLALCHEMY_DATABASE_URI = 'postgresql://app:1441@localhost:5432/weedly'
-SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URL', 'postgresql://app:1441@db:5432/weedly')
+from dotenv import load_dotenv
+from pathlib import Path
+
+
+# load_dotenv(Path(__file__).parents[1] / 'local.env')
+load_dotenv(Path(__file__).parents[1] / 'prod.env')
+print('DB_URL --- ',os.environ.get('DB_URL'))
+SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URL')
+
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # server settings
