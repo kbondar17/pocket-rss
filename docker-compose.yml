@@ -19,7 +19,7 @@ services:
     build:
       context:  ./rss-backend
       dockerfile: ./Dockerfile
-    command: /app/docker_commands/init_db.sh
+    command: bash -c "chmod +x /app/docker_commands/init_db.sh && source /app/docker_commands/init_db.sh" 
     volumes:
       - ./rss-backend:/app
 

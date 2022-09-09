@@ -24,6 +24,10 @@ RUN service cron start
 COPY weedly /app/weedly
 COPY requirements.txt /app/ 
 COPY ./docker_commands/init_db.sh /app/init_db.sh
+#RUN chmod 777 /app/init_db.sh
+RUN chmod a+x /app/init_db.sh
+
+
 COPY prod.env /app/
 
 RUN pip install -r requirements.txt
