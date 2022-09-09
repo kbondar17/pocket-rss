@@ -1,5 +1,6 @@
 import time
 from typing import Optional
+import arrow
 
 import structlog
 
@@ -51,11 +52,18 @@ class Worker:
 
         for feed_id, feed in self._feeds.items():
             self._load_feed(feed_id, feed)
+    
+    def get_oldest_feed_article(self, feed_id):
+        oldest = self._client.feeds.get_oldest_article_datetime(feed_id)
+        return oldest
 
     def _load_feed(self, feed_id: int, feed: rss.Client) -> None:
         logger.info('get rss from feed', feed=feed_id)
         try:
             articles = feed.parse()
+            oldest = self.get_oldest_feed_article(feed_id)
+            if oldest:
+                articles = [e for e in articles if e.published > arrow.get(oldest) ]        
 
             for article in articles:
                 author_id = self._get_author_id(feed_id, article.author)

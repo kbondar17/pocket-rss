@@ -56,6 +56,12 @@ def get_articles(uid):
     return jsonify(articles), HTTPStatus.OK
 
 
+@routes.get('/<int:uid>/articles/oldest')
+def get_oldest_datetime(uid):
+    oldest_datetime = repo.get_oldest_article_date_time(uid)
+    return jsonify(oldest_datetime), HTTPStatus.OK
+    
+
 @routes.post('/')
 def add():
     payload = request.json

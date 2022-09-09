@@ -21,4 +21,3 @@ def reset_db():
     for table in Base.metadata.sorted_tables:
         print('удаляем', table)
         table.drop(engine)
-

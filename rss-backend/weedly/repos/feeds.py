@@ -1,6 +1,7 @@
 import logging
 from itertools import chain
 from typing import Optional
+from datetime import datetime
 
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
@@ -107,4 +108,12 @@ class FeedRepo:
 
     def get_articles(self, uid) -> list[Article]:
         feed = self.get_by_id(uid)
-        return feed.feed_articles
+        articles = feed.articles.order_by(Article.published.desc()).slice(0,30)
+        return articles
+
+    def get_oldest_article_date_time(self, uid)->datetime:
+        feed = self.get_by_id(uid)
+        oldest_date_time = feed.articles.order_by(Article.published.asc()).first()
+        if not oldest_date_time:
+            raise NotFoundError('article. feed uid --', uid)
+        return oldest_date_time.published

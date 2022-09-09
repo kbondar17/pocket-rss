@@ -1,4 +1,6 @@
 version: "3.9"
+
+
 services:
   db:
     image: postgres:13
@@ -17,16 +19,21 @@ services:
     build:
       context:  ./rss-backend
       dockerfile: ./Dockerfile
+    command: /app/docker_commands/init_db.sh
+    volumes:
+      - ./rss-backend:/app
+
     env_file:
     - .env
-
 
   rss_parser:
     depends_on:
       - db
       - rss_api
     restart: always
-    
+    volumes:
+      - ./rss-parser:/app
+
     build:
       context:  ./rss-parser
       dockerfile: ./Dockerfile
@@ -45,4 +52,3 @@ services:
       dockerfile: ./Dockerfile
     env_file:
     - .env
-
