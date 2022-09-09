@@ -20,7 +20,7 @@ class FeedClient:
         raw_feeds = httpx.get(str(url), params={'rss-only': '0'}).json()
         return [Feed(**article) for article in raw_feeds]
 
-    def get_oldest_article_datetime(self, feed_id)->None|datetime:
+    def get_oldest_article_datetime(self, feed_id):
         url = self.url / f'api/v1/feeds/{feed_id}/oldest'
         r = httpx.get(str(url))
         if r.status_code > 200:
