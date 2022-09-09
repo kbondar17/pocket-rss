@@ -26,6 +26,12 @@ def get_by_id(uid: int):
     user = schemas.User.from_orm(entity)
     return user.dict(), http.HTTPStatus.OK
 
+@routes.get('/<int:uid>/add_test_rss')
+def add_test_rss(uid: int):
+    result = repo.add_test_rss_to_user(uid)
+    if result:
+        return {}, http.HTTPStatus.OK
+    return {'error': 'failed to add test rss'}, http.HTTPStatus.BAD_REQUEST
 
 @routes.post('/')
 def add():
