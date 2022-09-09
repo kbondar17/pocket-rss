@@ -35,7 +35,6 @@ class UserRepo:
         user = query.first()
         if not user:
             raise NotFoundError('user', uid)
-
         return user
 
     def get_all(self, limit: int = 100, offset=0) -> list[User]:
@@ -43,6 +42,15 @@ class UserRepo:
         query = query.filter_by(is_deleted=False)
         query = query.limit(limit).offset(offset)
         return query.all()
+
+    def add_test_rss_to_user(self, user_uid: int):
+        test_feeds = self.session.query(Feed) 
+        test_feeds = test_feeds.filter(Feed.uid.in_(1,3,4)).all()  
+        if not test_feeds:
+            return False
+        for feed in test_feeds:
+            self.add_rss_to_user(user_uid, feed.uid)
+        return True
 
     def add_rss_to_user(self, uid: int, feed_id: int) -> list[Feed]:
         query = self.session.query(User)
