@@ -1,3 +1,4 @@
+from re import T
 from typing import Optional
 
 import httpx
@@ -14,6 +15,29 @@ class UserClient:
 
     def test(self):
         return 'its a uset test!!!'
+
+    def check_if_user_exists(self, uid):
+        url = self.url / f'api/v1/users/{uid}'
+        try:
+            req = httpx.get(str(url)) 
+            req.raise_for_status()
+            logging.debug(f'Юзер {uid} существует в БД!')
+            return True
+        except httpx.HTTPError as er:
+            logging.warning(er)
+            logging.warning(f'Видимо, юзер %s уже существует', uid)
+
+    def add_test_rss(self, uid):
+        url = self.url / f'api/v1/users/{uid}/add_test_rss'
+        try:
+            req = httpx.get(str(url)) 
+            req.raise_for_status()
+            logging.debug(f'добавили тестовые rss юзеру %s!', uid)
+            return True
+        except httpx.HTTPError as er:
+            logging.warning(er)
+            logging.warning(f'не удалось добавить тестовый rss юзеру %s', uid)
+
 
     def add_user(self, uid, name):
         data = {"uid": uid, "name": name}
