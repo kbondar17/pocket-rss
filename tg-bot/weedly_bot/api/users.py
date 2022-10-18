@@ -25,7 +25,7 @@ class UserClient:
             return True
         except httpx.HTTPError as er:
             logging.warning(er)
-            logging.warning(f'Видимо, юзер %s уже существует', uid)
+            logging.warning(f'Видимо, юзера %s не существует', uid)
 
     def add_test_rss(self, uid):
         url = self.url / f'api/v1/users/{uid}/add_test_rss'
