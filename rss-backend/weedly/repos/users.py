@@ -45,7 +45,7 @@ class UserRepo:
 
     def add_test_rss_to_user(self, user_uid: int):
         test_feeds = self.session.query(Feed) 
-        test_feeds = test_feeds.filter(Feed.uid.in_(1,3,4)).all()  
+        test_feeds = test_feeds.filter(Feed.uid.in_([1,3,4])).all()  
         if not test_feeds:
             return False
         for feed in test_feeds:
